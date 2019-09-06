@@ -2,3 +2,5 @@ cmake-build-*
 .vscode
 .idea
 testproj
+build
+build-debug
