@@ -29,7 +29,7 @@ namespace clstl {
 
     string& string::concat(const string& other) {
 
-        unsigned long newLength = other.m_Length + this->m_Length;
+        ulong newLength = other.m_Length + this->m_Length;
         char* newBuf = new char[newLength + 1];
         strcpy(newBuf, m_Buffer);
         strcpy(newBuf + m_Length, other.m_Buffer);
@@ -47,15 +47,15 @@ namespace clstl {
         return this->concat(other);
     }
 
-    char& string::operator[](unsigned long index) {
+    char& string::operator[](ulong index) {
         return m_Buffer[index];
     }
 
-    unsigned int strlen(const char* str) {
+    uint strlen(const char* str) {
 
-        unsigned int len = 0;
+        uint len = 0;
 
-        unsigned int index = 0;
+        uint index = 0;
         while (char c = str[index] != 0) {
 
             len++;
@@ -69,7 +69,7 @@ namespace clstl {
 
     void strcpy(char* dest, const char* src) {
 
-        unsigned int index = 0;
+        uint index = 0;
         while (src[index] != 0) {
 
             dest[index] = src[index];
