@@ -1,4 +1,5 @@
 #include <ostream>
+#include <clstl/types.h>
 
 namespace clstl {
 
@@ -6,7 +7,7 @@ namespace clstl {
 
     private:
         char* m_Buffer;
-        unsigned long m_Length;
+        ulong m_Length;
 
     public:
         string();
@@ -16,12 +17,12 @@ namespace clstl {
 
         string& concat(const string& other);
         string& operator+(const string& other);
-        char& operator[](unsigned long index);
+        char& operator[](ulong index);
         const char* c_str() const;
 
     };
 
-    unsigned int strlen(const char* str);
+    uint strlen(const char* str);
     void strcpy(char* dest, const char* src);
 
 }

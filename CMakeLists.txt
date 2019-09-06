@@ -4,7 +4,6 @@ project(clstl)
 add_library(
     clstl 
     "src/string/string.cpp"
-    "src/collections/array_list.cpp"
 )
 
 set_target_properties(
