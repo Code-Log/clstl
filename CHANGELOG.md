@@ -7,7 +7,14 @@
 * Added a type definition header.
 * Completed implementation of array_list.
 
-## 2019-09-7 -- v0.0.3
+## 2019-09-07 -- v0.0.3
 
 * Added array implementation.
 * Fixed memory leak in clstl::string.
+
+## 2019-09-11 -- v0.1.0
+
+* Added HashMap implementation.
+* Optimized clstl::string
+* Added dual (stores two types)
+* Misc. changes
