@@ -1,3 +1,8 @@
+#ifndef STRING_H
+#define STRING_H
+
+#pragma once
+
 #include <ostream>
 #include <clstl/types.h>
 #include <memory>
@@ -16,11 +21,12 @@ namespace clstl {
         string(const string& other);
         ~string();
 
-        string concat(const string& other);
-        string operator+(const string& other);
+        string concat(const string& other) const;
+        string operator+(const string& other) const;
         char& operator[](ulong index);
         void operator=(const string& other);
         const char* c_str() const;
+        bool operator==(const string& other) const;
 
     };
 
@@ -31,3 +37,5 @@ namespace clstl {
 
 clstl::string& operator ""_s(const char* lit, size_t);
 std::ostream& operator<<(std::ostream& stream, const clstl::string& str);
+
+#endif

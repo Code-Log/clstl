@@ -1,6 +1,8 @@
 #ifndef ARRAY_LIST_H
 #define ARRAY_LIST_H
 
+#pragma once
+
 #include <cstring>
 #include <clstl/types.h>
 
@@ -55,7 +57,7 @@ namespace clstl {
             if (m_Used >= m_Count)
                 add_block(1);
 
-            (*this)[m_Used] = item;
+            this->m_Data[m_Used] = item;
             m_Used++;
 
         }

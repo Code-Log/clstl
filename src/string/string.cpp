@@ -1,10 +1,9 @@
 #include <clstl/string.h>
 #include <cstring>
-#include <iostream>
 
 namespace clstl {
 
-    string::string() : m_Length(0), m_Buffer(nullptr) {}
+    string::string() : m_Length(0), m_Buffer(new char[1]) { m_Buffer[0] = 0; }
 
     string::string(const char* buffer) {
 
@@ -18,8 +17,6 @@ namespace clstl {
 
     string::string(const string& other) {
 
-        std::cout << "Copy string" << std::endl;
-
         this->m_Length = other.m_Length;
         this->m_Buffer = new char[m_Length + 1];
         std::memcpy(this->m_Buffer, other.m_Buffer, this->m_Length + 1);
@@ -27,11 +24,13 @@ namespace clstl {
 
     }
 
+    const char* string::c_str() const { return m_Buffer; }
+
     string::~string() {
         delete[] m_Buffer;
     }
 
-    string string::concat(const string& other) {
+    string string::concat(const string& other) const {
 
         ulong newLength = other.m_Length + this->m_Length;
         char* newBuf = new char[newLength + 1];
@@ -47,7 +46,7 @@ namespace clstl {
 
     }
 
-    string string::operator+(const string& other) {
+    string string::operator+(const string& other) const {
         return this->concat(other);
     }
 
@@ -92,7 +91,11 @@ namespace clstl {
 
     }
 
-    const char* string::c_str() const { return m_Buffer; }
+    bool string::operator==(const string& other) const {
+
+        return this->m_Buffer == other.m_Buffer;
+
+    }
 
 }
 
