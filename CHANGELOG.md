@@ -18,3 +18,7 @@
 * Optimized clstl::string
 * Added dual (stores two types)
 * Misc. changes
+
+## 2019-09-12 -- v0.1.1
+
+* Added stack
