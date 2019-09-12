@@ -1,3 +1,8 @@
+#ifndef STACK_H
+#define STACK_H
+
+#pragma once
+
 #include <clstl/types.h>
 #include <clstl/array_list.h>
 
@@ -32,3 +37,5 @@ namespace clstl {
     };
     
 }
+
+#endif

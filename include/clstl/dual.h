@@ -1,3 +1,8 @@
+#ifndef DUAL_H
+#define DUAL_H
+
+#pragma once
+
 namespace clstl {
 
     template<typename T1, typename T2>
@@ -18,3 +23,5 @@ namespace clstl {
     };
 
 }
+
+#endif
