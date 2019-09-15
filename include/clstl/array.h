@@ -47,7 +47,7 @@ namespace clstl {
         T& operator[](uint index) { return this->at(index); }
         
         void operator=(const array<T, N>& other) {
-            std::memcpy(m_Data, other.data, sizeof(T) * N);
+            std::memcpy(m_Data, other.m_Data, sizeof(T) * N);
         }
 
         void set_data(T* data) {
