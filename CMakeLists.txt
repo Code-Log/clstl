@@ -21,7 +21,7 @@ install(
     FILES "include/clstl/array.h" DESTINATION "incude/clstl"
     FILES "include/clstl/dual.h" DESTINATION "incude/clstl"
     FILES "include/clstl/hash_map.h" DESTINATION "incude/clstl"
-    FILES "include/clstl/stack.h.h" DESTINATION "incude/clstl"
+    FILES "include/clstl/stack.h" DESTINATION "incude/clstl"
     FILES "include/clstl/types.h" DESTINATION "incude/clstl"
     FILES "include/clstl/unique_ptr.h" DESTINATION "incude/clstl"
     FILES "include/clstl/shared_ptr.h" DESTINATION "incude/clstl"
