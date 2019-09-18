@@ -19,7 +19,7 @@ namespace clstl {
         T* add_block(size_t count) {
 
             T* newData = new T[m_Count + count];
-            std::memcpy(newData, m_Data, sizeof(T) * m_Count);
+            std::memcpy(newData, m_Data, sizeof(T) * m_Used);
             m_Count = count;
 
             delete[] m_Data;
@@ -74,8 +74,20 @@ namespace clstl {
                 
         }
 
-        void clear() {
+        /*
+            Hard clear reallocates the
+            underlying storage
+        */
+        void clear(bool hard_clear = false) {
+            
+            if (hard_clear) {
+
+                delete[] m_Data;
+                m_Data = new T[m_Count];
+
+            }
             m_Used = 0;
+
         }
 
         T* data() {
