@@ -5,7 +5,6 @@
 
 #include <ostream>
 #include <clstl/types.h>
-#include <memory>
 
 namespace clstl {
 
@@ -35,7 +34,7 @@ namespace clstl {
 
 }
 
-clstl::string& operator ""_s(const char* lit, size_t);
+clstl::string& operator ""_s(const char* lit, size_t size);
 std::ostream& operator<<(std::ostream& stream, const clstl::string& str);
 
 #endif

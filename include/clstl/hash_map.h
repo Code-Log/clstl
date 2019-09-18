@@ -18,7 +18,7 @@ namespace clstl {
     public:
 
         hash_map() = default;
-        hash_map(uint size) : m_Keys(array_list<K>(size)), m_Values(array_list<V>(size)) {}
+        hash_map(size_t size) : m_Keys(array_list<K>(size)), m_Values(array_list<V>(size)) {}
 
         void add(K key, V value) {
 
@@ -30,7 +30,7 @@ namespace clstl {
         void remove(const K& key) {
 
             bool found = false;
-            uint i = 0;
+            size_t i = 0;
             while (!found && i < m_Keys.size()) {
 
                 if (m_Keys[i] == key)
@@ -46,7 +46,7 @@ namespace clstl {
         V& get(const K& key) {
 
             bool found = false;
-            uint i = 0;
+            size_t i = 0;
             while (!found && i < m_Keys.size()) {
 
                 if (m_Keys[i] == key)

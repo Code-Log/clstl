@@ -9,7 +9,7 @@
 
 namespace clstl {
 
-    template<typename T, uint N>
+    template<typename T, size_t N>
     struct array {
 
     private:
@@ -17,7 +17,7 @@ namespace clstl {
 
     public:
 
-        uint size = N;
+        size_t size = N;
 
         array() = default;
 
@@ -27,32 +27,21 @@ namespace clstl {
             va_start(arglist, data);
 
             m_Data[0] = data;
-            for (uint i = 1; i < N; i++) {
+            for (size_t i = 1; i < N; i++) {
                 m_Data[i] = va_arg(arglist, T);
             }
 
         }
 
-        array(const array<T, N>& other) {
+        array(const array<T, N>& other) { std::memcpy(m_Data, other.m_Data, sizeof(T) * N); }
+        array(T* data) { std::memcpy(m_Data, data, sizeof(T) * N); }
 
-            std::memcpy(m_Data, other.m_Data, sizeof(T) * N);
-
-        }
-
-        array(T* data) {
-            std::memcpy(m_Data, data, sizeof(T) * N);
-        }
-
-        T& at(uint index) { return m_Data[index]; }
-        T& operator[](uint index) { return this->at(index); }
+        T& at(size_t index) { return m_Data[index]; }
+        T& operator[](size_t index) { return this->at(index); }
         
-        void operator=(const array<T, N>& other) {
-            std::memcpy(m_Data, other.m_Data, sizeof(T) * N);
-        }
-
-        void set_data(T* data) {
-            std::memcpy(m_Data, data, sizeof(T) * N);
-        }
+        void operator=(const array<T, N>& other) { std::memcpy(m_Data, other.m_Data, sizeof(T) * N); }
+        void operator=(T* data) { std::memcpy(m_Data, data, sizeof(T) * N); }
+        void set_data(T* data) { std::memcpy(m_Data, data, sizeof(T) * N); }
 
     };
 
