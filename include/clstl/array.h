@@ -17,8 +17,6 @@ namespace clstl {
 
     public:
 
-        size_t size = N;
-
         array() = default;
 
         array(T data, ...) {
@@ -32,6 +30,8 @@ namespace clstl {
             }
 
         }
+
+        size_t size() { return N; }
 
         array(const array<T, N>& other) { std::memcpy(m_Data, other.m_Data, sizeof(T) * N); }
         array(T* data) { std::memcpy(m_Data, data, sizeof(T) * N); }
