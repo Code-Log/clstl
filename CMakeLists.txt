@@ -25,4 +25,5 @@ install(
     FILES "include/clstl/types.h" DESTINATION "include/clstl"
     FILES "include/clstl/unique_ptr.h" DESTINATION "include/clstl"
     FILES "include/clstl/shared_ptr.h" DESTINATION "include/clstl"
+    FILES "include/clstl/optional.h" DESTINATION "include/clstl"
 )
