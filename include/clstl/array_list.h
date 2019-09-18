@@ -13,10 +13,10 @@ namespace clstl {
 
     private:
         T* m_Data;
-        uint m_Count;
-        uint m_Used;
+        size_t m_Count;
+        size_t m_Used;
 
-        T* add_block(uint count) {
+        T* add_block(size_t count) {
 
             T* newData = new T[m_Count + count];
             std::memcpy(newData, m_Data, sizeof(T) * m_Count);
@@ -30,11 +30,11 @@ namespace clstl {
         }
 
     public:
-        array_list(uint count) : m_Data(new T[count]), m_Count(count), m_Used(0) {
+        array_list(size_t count) : m_Data(new T[count]), m_Count(count), m_Used(0) {
 
         }
 
-        array_list(T* data, uint count) : m_Data(new T[count]), m_Count(count), m_Used(count) {
+        array_list(T* data, size_t count) : m_Data(new T[count]), m_Count(count), m_Used(count) {
             std::memcpy(m_Data, data, sizeof(T) * count);
         }
 
@@ -62,9 +62,9 @@ namespace clstl {
 
         }
 
-        void splice(uint index, uint count) {
+        void splice(size_t index, size_t count) {
 
-            for (uint i = index + count; i < m_Used; i++) {
+            for (size_t i = index + count; i < m_Used; i++) {
 
                 m_Data[i - count] = m_Data[i];
 
@@ -84,16 +84,16 @@ namespace clstl {
 
         void for_each(void(*func)(T& item)) {
 
-            for (uint i = 0; i < m_Used; i++)
+            for (size_t i = 0; i < m_Used; i++)
                 func(m_Data[i]);
 
         }
 
-        uint size() const { return m_Used; }
-        uint allocated() const { return m_Count; }
+        size_t size() const { return m_Used; }
+        size_t allocated() const { return m_Count; }
 
-        T& at(uint index) { return m_Data[index]; }
-        T& operator[](uint index) { return this->at(index); }
+        T& at(size_t index) { return m_Data[index]; }
+        T& operator[](size_t index) { return this->at(index); }
 
         ~array_list() { delete[] m_Data; }
 

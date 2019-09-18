@@ -3,9 +3,8 @@
 
 #pragma once
 
-    #define uint unsigned int
-    #define ulong unsigned long
-    #define ubyte unsigned byte
-    #define ushort unsigned short
+    typedef unsigned int uint;
+    typedef unsigned long ulong;
+    typedef ulong size_t;
 
 #endif

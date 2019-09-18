@@ -31,8 +31,8 @@ namespace clstl {
 
         }
 
-        T& at(uint index) { return (*this)[index]; }
-        T& operator[](uint index) { return m_Data[index]; }
+        T& at(size_t index) { return (*this)[index]; }
+        T& operator[](size_t index) { return m_Data[index]; }
 
     };
     

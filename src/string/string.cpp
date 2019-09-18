@@ -56,9 +56,9 @@ namespace clstl {
 
     uint strlen(const char* str) {
 
-        uint len = 0;
+        size_t len = 0;
 
-        uint index = 0;
+        size_t index = 0;
         while (char c = str[index] != 0) {
 
             len++;
@@ -72,7 +72,7 @@ namespace clstl {
 
     void strcpy(char* dest, const char* src) {
 
-        uint index = 0;
+        size_t index = 0;
         while (src[index] != 0) {
 
             dest[index] = src[index];
