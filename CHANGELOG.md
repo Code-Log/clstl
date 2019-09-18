@@ -15,10 +15,16 @@
 ## 2019-09-11 -- v0.1.0
 
 * Added HashMap implementation.
-* Optimized clstl::string
-* Added dual (stores two types)
-* Misc. changes
+* Optimized clstl::string.
+* Added dual (stores two types).
+* Misc. changes.
 
 ## 2019-09-12 -- v0.1.1
 
-* Added stack
+* Added stack.
+
+## 2019-09-18 -- v0.1.2
+
+* Added clstl::optional.
+* Slight improvements.
+* Reorganized typedefs.
