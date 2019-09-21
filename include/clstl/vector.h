@@ -1,5 +1,5 @@
-#ifndef ARRAY_LIST_H
-#define ARRAY_LIST_H
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #pragma once
 
@@ -9,7 +9,7 @@
 namespace clstl {
 
     template<typename T>
-    struct array_list {
+    struct vector {
 
     private:
         T* m_Data;
@@ -18,7 +18,7 @@ namespace clstl {
 
         T* add_block(size_t count) {
 
-            T* newData = new T[m_Count + count];
+            T* newData = (T*)new char[sizeof(T) * (m_Count + count)];
             std::memcpy(newData, m_Data, sizeof(T) * m_Used);
             m_Count = count;
 
@@ -30,34 +30,50 @@ namespace clstl {
         }
 
     public:
-        array_list(size_t count) : m_Data(new T[count]), m_Count(count), m_Used(0) {
+        vector(size_t count) : m_Data((T*)new char[sizeof(T) * count]), m_Count(count), m_Used(0) {
 
         }
 
-        array_list(T* data, size_t count) : m_Data(new T[count]), m_Count(count), m_Used(count) {
+        vector(T* data, size_t count) : m_Data((T*)new char[sizeof(T) * count]), m_Count(count), m_Used(count) {
             std::memcpy(m_Data, data, sizeof(T) * count);
         }
 
-        array_list() : m_Data(new T[1]), m_Count(1), m_Used(0) {
+        vector() : m_Data((T*)new char[sizeof(T)]), m_Count(1), m_Used(0) {
 
         }
 
-        array_list(const array_list<T>& other) {
+        vector(const vector<T>& other) {
 
             this->m_Count = other.m_Count;
             this->m_Used = other.m_Used;
-            this->m_Data = new T[m_Count];
+            this->m_Data = (T*)new char[sizeof(T) * m_Count];
 
             std::memcpy(m_Data, other.m_Data, sizeof(T) * m_Used);
 
         }
 
-        void push(T item) {
+        void reserve(size_t count) {
+            add_block(count);
+        }
+
+        void push_back(T item) {
 
             if (m_Used >= m_Count)
                 add_block(1);
 
             this->m_Data[m_Used] = item;
+            m_Used++;
+
+        }
+
+        template<typename... args_t>
+        void emplace_back(args_t&&... args) {
+            
+            if (m_Used >= m_Count)
+                add_block(1);
+
+            // Construct object in-place
+            new(m_Data + m_Used) T(args...);
             m_Used++;
 
         }
@@ -83,7 +99,7 @@ namespace clstl {
             if (hard_clear) {
 
                 delete[] m_Data;
-                m_Data = new T[m_Count];
+                m_Data = (T*)new char[sizeof(T) * m_Count];
 
             }
             m_Used = 0;
@@ -107,7 +123,7 @@ namespace clstl {
         T& at(size_t index) { return m_Data[index]; }
         T& operator[](size_t index) { return this->at(index); }
 
-        ~array_list() { delete[] m_Data; }
+        ~vector() { delete[] m_Data; }
 
     };
 
