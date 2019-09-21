@@ -21,7 +21,9 @@ namespace clstl {
         T& operator[](size_t offset) { return m_Ptr[offset]; }
 
         unique_ptr<T>& operator=(const unique_ptr<T>&) = delete;
-        // unique_ptr(const unique_ptr<T>& other) = delete;
+        unique_ptr<T>& operator=(unique_ptr<T>&&) = default;
+        unique_ptr(unique_ptr<T>&&) = default;
+        unique_ptr(const unique_ptr<T>&) = delete;
 
         T* operator->() { return m_Ptr; }
         T& operator*() { return *m_Ptr; }
@@ -30,7 +32,7 @@ namespace clstl {
 
     template<typename T, typename... Args>
     unique_ptr<T> make_unique(Args&&... args) {
-        return unique_ptr<T>(new T(std::forward<Args>(args)...));
+        return unique_ptr<T>(new T(args...));
     }
 
 }
