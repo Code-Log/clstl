@@ -4,7 +4,7 @@
 #pragma once
 
 #include <clstl/types.h>
-#include <clstl/array_list.h>
+#include <clstl/vector.h>
 
 namespace clstl {
 
@@ -12,7 +12,7 @@ namespace clstl {
     struct stack {
         
     private:
-        array_list<T> m_Data;
+        vector<T> m_Data;
 
     public:
         stack() = default;

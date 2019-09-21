@@ -51,7 +51,7 @@ namespace clstl {
     shared_ptr<T> make_shared(Args&&... args) {
         int* refCount = new int;
         *refCount = 1;
-        return shared_ptr<T>(new T(std::forward<Args>(args)...), refCount);
+        return shared_ptr<T>(new T(args...), refCount);
     }
 
 }
