@@ -17,7 +17,7 @@ target_include_directories(clstl PUBLIC include)
 install(TARGETS clstl DESTINATION lib)
 install(
     FILES "include/clstl/string.h" DESTINATION "include/clstl"
-    FILES "include/clstl/array_list.h" DESTINATION "include/clstl"
+    FILES "include/clstl/vector.h" DESTINATION "include/clstl"
     FILES "include/clstl/array.h" DESTINATION "include/clstl"
     FILES "include/clstl/dual.h" DESTINATION "include/clstl"
     FILES "include/clstl/hash_map.h" DESTINATION "include/clstl"

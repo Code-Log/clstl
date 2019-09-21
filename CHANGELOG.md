@@ -28,3 +28,9 @@
 * Added clstl::optional.
 * Slight improvements.
 * Reorganized typedefs.
+
+## 2019-09-21 -- v0.1.3
+
+* Fixed unique_ptr to disallow copying.
+* Renamed array_list to vector.
+* Some minor optimizations.
