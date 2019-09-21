@@ -32,6 +32,9 @@ namespace clstl {
             (*m_RefCount)++;
             this->m_Ptr = other.m_Ptr;
         }
+
+        T* get() const { return m_Ptr; }
+
         void operator=(const shared_ptr<T>& other) {
             this->m_RefCount = other.m_RefCount;
             (*m_RefCount)++;
