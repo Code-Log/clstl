@@ -18,6 +18,8 @@ namespace clstl {
 
         explicit unique_ptr(T* ptr) : m_Ptr(ptr) { }
 
+        T* get() const { return m_Ptr; }
+
         T& operator[](size_t offset) { return m_Ptr[offset]; }
 
         unique_ptr<T>& operator=(const unique_ptr<T>&) = delete;
