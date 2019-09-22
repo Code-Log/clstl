@@ -27,4 +27,5 @@ install(
     FILES "include/clstl/shared_ptr.h" DESTINATION "include/clstl"
     FILES "include/clstl/optional.h" DESTINATION "include/clstl"
     FILES "include/clstl/list.h" DESTINATION "include/clstl"
+    FILES "include/clstl/slist.h" DESTINATION "include/clstl"
 )
