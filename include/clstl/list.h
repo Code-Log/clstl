@@ -55,7 +55,7 @@ namespace clstl {
 
         uint size() {
 
-            uint ret = 1;
+            uint ret = 0;
             list<T>* current = &this->first();
             while (current->m_Next != nullptr) {
                 current = current->m_Next;
@@ -63,6 +63,14 @@ namespace clstl {
             }
 
             return ret;
+
+        }
+
+        void for_each(void(*func)(T& item)) {
+
+            for (uint i = 0; i < this->size(); i++) {
+                func(this->get(i));
+            }
 
         }
 
