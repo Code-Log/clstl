@@ -34,3 +34,7 @@
 * Fixed unique_ptr to disallow copying.
 * Renamed array_list to vector.
 * Some minor optimizations.
+
+## 2019-09-21 -- v0.2.0
+
+* Added list.
