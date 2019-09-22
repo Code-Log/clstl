@@ -36,8 +36,15 @@ namespace clstl {
         array(const array<T, N>& other) { std::memcpy(m_Data, other.m_Data, sizeof(T) * N); }
         array(T* data) { std::memcpy(m_Data, data, sizeof(T) * N); }
 
-        T& at(size_t index) { return m_Data[index]; }
-        T& operator[](size_t index) { return this->at(index); }
+        void for_each(void(*func)(T&)) {
+
+            for (uint i = 0; i < this->size(); i++)
+                func(this->get(i));
+
+        }
+
+        T& get(size_t index) { return m_Data[index]; }
+        T& operator[](size_t index) { return this->get(index); }
         
         void operator=(const array<T, N>& other) { std::memcpy(m_Data, other.m_Data, sizeof(T) * N); }
         void operator=(T* data) { std::memcpy(m_Data, data, sizeof(T) * N); }
