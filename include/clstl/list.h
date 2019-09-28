@@ -9,7 +9,7 @@ namespace clstl {
         list<T>* m_Next;
     
     public:
-        list() : m_Next(nullptr), m_Prev(this) {}
+        list() : m_Data(nullptr), m_Next(nullptr), m_Prev(this) {}
 
         list(const T& data) : m_Data(data) {}
 
@@ -55,7 +55,7 @@ namespace clstl {
 
         uint size() {
 
-            uint ret = 0;
+            uint ret = 1;
             list<T>* current = &this->first();
             while (current->m_Next != nullptr) {
                 current = current->m_Next;
