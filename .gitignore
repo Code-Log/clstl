@@ -4,3 +4,4 @@ cmake-build-*
 testproj
 build
 build-debug
+debian
