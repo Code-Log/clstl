@@ -42,3 +42,7 @@
 ## 2019-09-22 -- v0.2.1
 
 * Added slist.
+
+## 2019-11-07 -- v0.2.2
+
+* Fixed types.h conflict
