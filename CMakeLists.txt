@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.13)
 project(clstl)
 
 add_library(
@@ -15,17 +15,4 @@ set_target_properties(
 target_include_directories(clstl PUBLIC include)
 
 install(TARGETS clstl DESTINATION lib)
-install(
-    FILES "include/clstl/string.h" DESTINATION "include/clstl"
-    FILES "include/clstl/vector.h" DESTINATION "include/clstl"
-    FILES "include/clstl/array.h" DESTINATION "include/clstl"
-    FILES "include/clstl/dual.h" DESTINATION "include/clstl"
-    FILES "include/clstl/hash_map.h" DESTINATION "include/clstl"
-    FILES "include/clstl/stack.h" DESTINATION "include/clstl"
-    FILES "include/clstl/types.h" DESTINATION "include/clstl"
-    FILES "include/clstl/unique_ptr.h" DESTINATION "include/clstl"
-    FILES "include/clstl/shared_ptr.h" DESTINATION "include/clstl"
-    FILES "include/clstl/optional.h" DESTINATION "include/clstl"
-    FILES "include/clstl/list.h" DESTINATION "include/clstl"
-    FILES "include/clstl/slist.h" DESTINATION "include/clstl"
-)
+install(DIRECTORY include DESTINATION include)
