@@ -15,4 +15,4 @@ set_target_properties(
 target_include_directories(clstl PUBLIC include)
 
 install(TARGETS clstl DESTINATION lib)
-install(DIRECTORY include DESTINATION include)
+install(DIRECTORY include DESTINATION .)
