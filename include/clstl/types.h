@@ -3,8 +3,6 @@
 
 #pragma once
 
-    typedef unsigned int uint;
-    typedef unsigned long ulong;
-    typedef ulong size_t;
+// empty
 
 #endif
