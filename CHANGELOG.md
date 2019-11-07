@@ -46,3 +46,7 @@
 ## 2019-11-07 -- v0.2.2
 
 * Fixed types.h conflict
+
+## 2019-11-07 -- v0.2.3
+
+* Fixed installation error
