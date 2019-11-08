@@ -50,3 +50,7 @@
 ## 2019-11-07 -- v0.2.3
 
 * Fixed installation error
+
+## 2019-11-08 -- v0.2.4
+
+* Added weak_ptr

@@ -21,6 +21,7 @@ namespace clstl {
             this->m_Data = data;
             this->m_HasData = true;
         }
+        
         operator bool() const { return this->has_data(); }
 
     };

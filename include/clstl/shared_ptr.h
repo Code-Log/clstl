@@ -1,6 +1,8 @@
 #ifndef SHARED_PTR_H
 #define SHARED_PTR_H
 
+#include <clstl/vector.h>
+
 namespace clstl {
 
     template<typename T>
@@ -9,9 +11,9 @@ namespace clstl {
     private:
         T* m_Ptr;
         int* m_RefCount;
-        bool* alive;
+        clstl::vector<bool*> m_AliveRefs;
 
-        shared_ptr(T* ptr, int* refCount) : m_Ptr(ptr), m_RefCount(refCount) { }
+        shared_ptr(T* ptr, int* refCount) : m_Ptr(ptr), m_RefCount(refCount), m_AliveRefs(2) { }
 
     public:
 
@@ -20,26 +22,39 @@ namespace clstl {
         ~shared_ptr() {
 
             (*m_RefCount)--;
+
             if (*m_RefCount <= 0) {
+
                 delete m_Ptr;
                 delete m_RefCount;
+
+                m_AliveRefs.for_each([](bool*& item) { *item = false; });
+
             }
 
         }
 
         shared_ptr(const shared_ptr<T>& other) {
+
             this->m_RefCount = other.m_RefCount;
             (*m_RefCount)++;
+
             this->m_Ptr = other.m_Ptr;
+
         }
 
         T* get() const { return m_Ptr; }
 
         void operator=(const shared_ptr<T>& other) {
+
             this->m_RefCount = other.m_RefCount;
             (*m_RefCount)++;
+            
             this->m_Ptr = other.m_Ptr;
+
         }
+
+        void weak_ref(bool* ref) { m_AliveRefs.push_back(ref); }
 
         T* operator->() { return m_Ptr; }
 
