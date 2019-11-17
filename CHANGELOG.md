@@ -54,3 +54,8 @@
 ## 2019-11-08 -- v0.2.4
 
 * Added weak_ptr
+
+## 2019-11-17 -- v0.2.5
+
+* Added any
+* Cleaned up code a bit

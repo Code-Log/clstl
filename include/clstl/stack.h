@@ -16,6 +16,7 @@ namespace clstl {
 
     public:
         stack() = default;
+        stack(uint size) : m_Data(size) { }
         
         void push(const T& data) {
 
