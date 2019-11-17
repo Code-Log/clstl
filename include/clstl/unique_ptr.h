@@ -12,7 +12,6 @@ namespace clstl {
         T* m_Ptr;
 
     public:
-
         unique_ptr() : m_Ptr(nullptr) { }
         ~unique_ptr() { delete m_Ptr; }
 
