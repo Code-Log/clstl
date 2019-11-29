@@ -59,3 +59,7 @@
 
 * Added any
 * Cleaned up code a bit
+
+## 2019-11-29 -- v0.2.6
+
+* Fixed hash_map

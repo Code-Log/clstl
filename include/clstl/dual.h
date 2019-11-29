@@ -20,6 +20,9 @@ namespace clstl {
         T1& head() { return m_Head; }
         T2& tail() { return m_Tail; }
 
+        operator T1() { return head(); }
+        operator T2() { return tail(); }
+
     };
 
 }

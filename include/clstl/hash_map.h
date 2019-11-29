@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <clstl/array_list.h>
-#include <clstl/types.h>
+#include <clstl/dual.h>
+#include <clstl/vector.h>
 
 namespace clstl {
 
@@ -12,53 +12,43 @@ namespace clstl {
     struct hash_map {
 
     private:
-        array_list<K> m_Keys;
-        array_list<V> m_Values;
+        clstl::vector<clstl::dual<K, V>> m_Data;
 
     public:
-
         hash_map() = default;
-        hash_map(size_t size) : m_Keys(array_list<K>(size)), m_Values(array_list<V>(size)) {}
+        hash_map(uint size) : m_Data(size) {}
 
         void add(K key, V value) {
-
-            m_Keys.push(key);
-            m_Values.push(value);
-
+            m_Data.emplace_back(key, value);
         }
 
         void remove(const K& key) {
 
-            bool found = false;
-            size_t i = 0;
-            while (!found && i < m_Keys.size()) {
+            for (uint i = m_Data.size - 1; i >= 0; i--) {
 
-                if (m_Keys[i] == key)
-                    found = true;
-
-            }
-
-            m_Keys.splice(i, 1);
-            m_Values.splice(i, 1);
-
-        }
-
-        V& get(const K& key) {
-
-            bool found = false;
-            size_t i = 0;
-            while (!found && i < m_Keys.size()) {
-
-                if (m_Keys[i] == key)
-                    found = true;
+                if (m_Data[i].head() == key) {
+                    m_Data.splice(i, 1);
+                    return;
+                }
 
             }
 
-            return m_Values[i];
-
         }
 
-        V& operator[](const K& key) { return get(key); }
+        V get(const K& key) {
+
+            V val;
+            for (uint i = 0; i < m_Data.size(); i++) {
+
+                if (m_Data[i].head() == key) {
+                    return m_Data[i].tail();
+                }
+
+            }
+
+            return val;
+
+        }
 
     };
 
