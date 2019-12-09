@@ -4,6 +4,10 @@
 
 This is the CodeLog Standard Template Library or CLSTL.
 
+## Contributing
+
+See [Contributing](CONTRIBUTING.md) for details on how to contribute to the project.
+
 ## Building
 
 ### Windows
