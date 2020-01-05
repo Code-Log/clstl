@@ -3,6 +3,7 @@
 #include <vector>
 #include <functional>
 #include <clstl/vector.h>
+#include <clstl/unique_ptr.h>
 
 std::vector<std::function<void(void)>> test_funcs;
 std::vector<int> results(1);
@@ -20,9 +21,55 @@ void test_vector(void) {
 
 }
 
+void* deleted_memory = nullptr;
+
+void operator delete(void* ptr) noexcept {
+
+    deleted_memory = ptr;
+    free(ptr);
+
+}
+
+void test_unique_pointer(void) {
+
+    static bool created = false;
+    static bool destroyed = false;
+
+    class Entity {
+
+    private:
+        const char* m_Name;
+    
+    public:
+        Entity(const char* name) : m_Name(name) { created = true; }
+        Entity(const Entity& other) : m_Name(other.m_Name) { }
+
+        void printName() { std::cout << m_Name << std::endl; }
+
+    };
+    
+    // Create temporary scope to test pointer auto-deletion
+    void* ptr;
+    {
+        clstl::unique_ptr<Entity> u_ptr = clstl::make_unique<Entity>("name");
+        if (!created) {
+            results.emplace_back(-1);
+            return;
+        }
+        ptr = u_ptr.getPointer();
+    }
+
+    if (deleted_memory != ptr) {
+        results.emplace_back(-1);
+        return;
+    }
+
+}
+
 int main(int argc, const char** argv) {
 
     test_funcs.push_back(test_vector);
+    test_funcs.push_back(test_unique_pointer);
 
     if (argc <= 1) {
         
