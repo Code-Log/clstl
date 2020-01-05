@@ -8,7 +8,10 @@ add_library(
 )
 
 add_executable(clstl_test tests/main.cpp)
-add_test(clstl_test clstl_test 0)
+target_include_directories(clstl_test PUBLIC include)
+
+add_test(test_vector clstl_test 0)
+add_test(test_unique_ptr clstl_test 1)
 
 set_target_properties(
     clstl PROPERTIES
