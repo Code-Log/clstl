@@ -26,6 +26,8 @@ namespace clstl {
         unique_ptr(unique_ptr<T>&&) = default;
         unique_ptr(const unique_ptr<T>&) = delete;
 
+        T* getPointer() { return m_Ptr; }
+
         T* operator->() { return m_Ptr; }
         T& operator*() { return *m_Ptr; }
 

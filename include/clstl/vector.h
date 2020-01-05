@@ -110,6 +110,7 @@ namespace clstl {
             return m_Data;
         }
 
+        // Standard clstl iterator (Not standard... I know!)
         void for_each(void(*func)(T& item)) {
 
             for (size_t i = 0; i < m_Used; i++)
@@ -117,11 +118,13 @@ namespace clstl {
 
         }
 
+        // Returns the amount of items inserted into
+        // the vector
         size_t size() const { return m_Used; }
-        size_t allocated() const { return m_Count; }
+        size_t allocated() const { return m_Count; } // Returns the integer allocated space
 
-        T& at(size_t index) { return m_Data[index]; }
-        T& operator[](size_t index) { return this->at(index); }
+        T& at(size_t index) { return m_Data[index]; } // I'm not explaining this...
+        T& operator[](size_t index) { return this->at(index); } // Same as this->at(index);
 
         ~vector() { delete[] m_Data; }
 
