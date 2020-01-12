@@ -22,11 +22,13 @@ namespace clstl {
         ~shared_ptr() {
 
             (*m_RefCount)--;
+            // std::cout << "Destroying " << this << "\nRef count: " << *m_RefCount << std::endl;
 
             if (*m_RefCount <= 0) {
 
-                delete m_Ptr;
+                // std::cout << "Destroying pointer" << std::endl;
                 delete m_RefCount;
+                delete m_Ptr;
 
                 m_AliveRefs.for_each([](bool*& item) { *item = false; });
 
