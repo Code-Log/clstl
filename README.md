@@ -10,6 +10,10 @@ See [Contributing](CONTRIBUTING.md) for details on how to contribute to the proj
 
 ## Building
 
+### Prerequisites
+
+* CMake, Clang (Linux only)
+
 ### Windows
 
 * On Windows, type `cmake . -G <your-generator-here>` to build the CMake project and then import it into your favourite IDE.
@@ -31,7 +35,31 @@ See [Contributing](CONTRIBUTING.md) for details on how to contribute to the proj
 
 * On Arch just install the AUR package 'libclstl'
 
+#### Ubuntu / Debian
+
+1. Add the CodeLog PPA to your system.
+
+```bash
+sudo add-apt-repository ppa:codeloginc/public
+```
+
+2. Update your package lists.
+
+```bash
+sudo apt-get update
+```
+
+3. Install the package.
+
+```bash
+sudo apt-get install libclstl-dev
+```
+
 #### Other distros
 
 1. Build the project as described in 'Building'
-2. In the build directory use `sudo make install` to install the library.
+2. In the build directory use make to install the library.
+
+```bash
+sudo make install
+```
