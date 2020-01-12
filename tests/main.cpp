@@ -2,11 +2,12 @@
 #include <sstream>
 #include <vector>
 #include <functional>
+#include <memory>
 #include <clstl/vector.h>
 #include <clstl/unique_ptr.h>
 #include <clstl/shared_ptr.h>
 
-std::vector<std::function<void(void)>> test_funcs;
+std::vector<std::function<void(void)>>* test_funcs;
 std::vector<int> results(1);
 
 class Entity {
@@ -18,7 +19,7 @@ public:
     Entity(const char* name) : m_Name(name) { }
     Entity(const Entity& other) : m_Name(other.m_Name) { }
 
-    void printName() { std::cout << m_Name << std::endl; }
+    const char* getName() { return m_Name; }
 
 };
 
@@ -37,82 +38,18 @@ void test_vector(void) {
 
 std::vector<void*> deleted_memory(10);
 
-void operator delete(void* ptr) noexcept {
-
-    deleted_memory.emplace_back(ptr);
-    std::cout << "Deleted " << ptr << std::endl;
-    free(ptr);
-
-}
 
 void test_unique_ptr(void) {
     
-    // Create temporary scope to test pointer auto-deletion
-    void* ptr;
-    {
-        clstl::unique_ptr<Entity> u_ptr = clstl::make_unique<Entity>("name");
-        ptr = u_ptr.get();
-    }
-
-    bool found = false;
-    for (int i = 0; i < deleted_memory.size(); i++) {
-        if (ptr == deleted_memory[i]) {
-            found = true;
-            break;
-        }
-    }
-
-    if (!found) {
+    auto test_ptr = clstl::make_unique<int>(1);
+    if (!(*test_ptr)) {
         results.emplace_back(-1);
         return;
     }
 
-}
-
-void test_shared_ptr(void) {
-
-    void* ptr;
-    {
-
-        clstl::shared_ptr<Entity> s_ptr = clstl::make_shared<Entity>("Hi");
-        ptr = (void*)s_ptr.get();
-        {
-
-            clstl::shared_ptr<Entity> copy = s_ptr;
-            if (copy.get() != s_ptr.get()) {
-                results.emplace_back(-1);
-                return;
-            }
-
-        }
-
-        bool found = false;
-        for (int i = 0; i < deleted_memory.size(); i++) {
-
-            if (ptr == deleted_memory[i]) {
-                found = true;
-                break;
-            }
-
-        }
-
-        if (found) {
-            results.emplace_back(-2);
-            return;
-        }
-
-    }
-
-    bool found = false;
-    for (int i = 0; i < deleted_memory.size(); i++) {
-        if (ptr == deleted_memory[i]) {
-            found = true;
-            break;
-        }
-    }
-
-    if (!found) {
-        results.emplace_back(-3);
+    auto test_ptr_entity = clstl::make_unique<Entity>("name");
+    if (strcmp("name", test_ptr_entity->getName()) != 0) {
+        results.emplace_back(-2);
         return;
     }
 
@@ -120,9 +57,11 @@ void test_shared_ptr(void) {
 
 int main(int argc, const char** argv) {
 
-    test_funcs.push_back(test_vector);
-    test_funcs.push_back(test_unique_ptr);
-    test_funcs.push_back(test_shared_ptr);
+    test_funcs = new std::vector<std::function<void(void)>>();
+    test_funcs->reserve(10);
+
+    test_funcs->push_back(test_vector);
+    test_funcs->push_back(test_unique_ptr);
 
     if (argc <= 1) {
         
@@ -138,12 +77,12 @@ int main(int argc, const char** argv) {
             int test_num;
             stream >> test_num;
 
-            if (test_num >= test_funcs.size()) {
+            if (test_num >= test_funcs->size()) {
                 std::cout << "Invalid test" << std::endl;
                 return 0;
             }
 
-            test_funcs[test_num]();
+            (*test_funcs)[test_num - 1]();
         
         }
         
