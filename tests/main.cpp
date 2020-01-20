@@ -6,6 +6,12 @@
 #include <clstl/vector.h>
 #include <clstl/unique_ptr.h>
 #include <clstl/shared_ptr.h>
+#include <clstl/list.h>
+#include <clstl/slist.h>
+#include <clstl/array.h>
+
+#define TEST_STRING "this is a long test string with some control characters\t\n"
+#define TEST_INTEGER 4e6
 
 std::vector<std::function<void(void)>>* test_funcs;
 std::vector<int> results(1);
@@ -36,9 +42,6 @@ void test_vector(void) {
 
 }
 
-std::vector<void*> deleted_memory(10);
-
-
 void test_unique_ptr(void) {
     
     auto test_ptr = clstl::make_unique<int>(1);
@@ -55,6 +58,54 @@ void test_unique_ptr(void) {
 
 }
 
+void test_list(void) {
+
+    clstl::list<Entity> test_list;
+    test_list.emplace_back(TEST_STRING);
+
+    if (strcmp(test_list[0].getName(), TEST_STRING) != 0) {
+        results.emplace_back(-1);
+        return;
+    }
+
+}
+
+void test_slist(void) {
+    
+    clstl::slist<Entity> test_list;
+    test_list.emplace_back(TEST_STRING);
+
+    if (strcmp(test_list[0].getName(), TEST_STRING) != 0) {
+        results.emplace_back(-1);
+        return;
+    }
+
+}
+
+void test_array(void) {
+
+    clstl::array<int, 100> test_arr;
+    int* control_arr = new int[100];
+
+    for (int i = 0; i < test_arr.size(); i++) {
+        test_arr[i] = i;
+        control_arr[i] = i;
+    }
+
+    int result = 0;
+    int control_res = 0;
+    for (int i = 0; i < test_arr.size(); i++) {
+        result += test_arr[i];
+        control_res += control_arr[i];
+    }
+
+    if (result != control_res) {
+        results.emplace_back(-1);
+        return;
+    }
+
+}
+
 int main(int argc, const char** argv) {
 
     test_funcs = new std::vector<std::function<void(void)>>();
@@ -62,6 +113,8 @@ int main(int argc, const char** argv) {
 
     test_funcs->push_back(test_vector);
     test_funcs->push_back(test_unique_ptr);
+    test_funcs->push_back(test_list);
+    test_funcs->push_back(test_slist);
 
     if (argc <= 1) {
         
