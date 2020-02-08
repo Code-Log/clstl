@@ -26,6 +26,7 @@ namespace clstl {
         void operator=(const string& other);
         const char* c_str() const;
         bool operator==(const string& other) const;
+        bool operator!=(const string& other) const;
         operator char*() { return m_Buffer; }
 
     };

@@ -93,9 +93,11 @@ namespace clstl {
 
     bool string::operator==(const string& other) const {
 
-        return this->m_Buffer == other.m_Buffer;
+        return strcmp(this->m_Buffer, other.m_Buffer) == 0;
 
     }
+
+    bool string::operator!=(const string& other) const { return !operator==(other); }
 
 }
 
