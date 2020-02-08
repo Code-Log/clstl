@@ -20,7 +20,7 @@ namespace clstl {
         
         void push(const T& data) {
 
-            m_Data.push(data);
+            m_Data.push_back(data);
 
         }
 
