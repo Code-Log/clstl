@@ -9,6 +9,9 @@
 #include <clstl/list.h>
 #include <clstl/slist.h>
 #include <clstl/array.h>
+#include <clstl/hash_map.h>
+#include <clstl/stack.h>
+#include <clstl/string.h>
 
 #define TEST_STRING "this is a long test string with some control characters\t\n"
 #define TEST_INTEGER 4e6
@@ -106,6 +109,65 @@ void test_array(void) {
 
 }
 
+void test_hash_map(void) {
+
+    clstl::hash_map<int, char> test_map;
+    test_map.add(1, 'a');
+    test_map.add(2, 'b');
+
+    if (test_map.get(1) != 'a') {
+        results.emplace_back(-1);
+        return;
+    }
+
+    test_map.remove(1);
+    
+    if (test_map.get(1)) {
+        results.emplace_back(-2);
+        return;
+    }
+
+}
+
+void test_stack(void) {
+
+    clstl::stack<int> test_s;
+    test_s.push(3);
+    test_s.push(4);
+
+    if (test_s.pop() != 4) {
+        results.emplace_back(-1);
+        return;
+    }
+
+}
+
+void test_string(void) {
+
+    clstl::string s_test = "Hi";
+    clstl::string c_test = "2";
+    c_test = s_test + c_test;
+
+    if (strcmp(s_test.c_str(), "Hi") != 0) {
+        results.emplace_back(-1);
+        return;
+    }
+
+    if (strcmp(c_test.c_str(), "Hi2") != 0) {
+        results.emplace_back(-2);
+        return;
+    }
+
+    clstl::string s_1 = "test";
+    clstl::string s_2 = "test";
+
+    if (s_1 != s_2) {
+        results.emplace_back(-3);
+        return;
+    }
+
+}
+
 int main(int argc, const char** argv) {
 
     test_funcs = new std::vector<std::function<void(void)>>();
@@ -115,6 +177,8 @@ int main(int argc, const char** argv) {
     test_funcs->push_back(test_unique_ptr);
     test_funcs->push_back(test_list);
     test_funcs->push_back(test_slist);
+    test_funcs->push_back(test_stack);
+    test_funcs->push_back(test_string);
 
     if (argc <= 1) {
         
@@ -130,7 +194,7 @@ int main(int argc, const char** argv) {
             int test_num;
             stream >> test_num;
 
-            if (test_num >= test_funcs->size()) {
+            if (test_num > test_funcs->size()) {
                 std::cout << "Invalid test" << std::endl;
                 return 0;
             }
@@ -158,6 +222,10 @@ int main(int argc, const char** argv) {
 
         std::cout << "One or more tests failed!" << std::endl;
         return -1;
+
+    } else {
+        
+        std::cout << "All tests passed" << std::endl;
 
     }
 
