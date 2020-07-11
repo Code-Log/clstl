@@ -13,13 +13,15 @@ namespace clstl {
 
     private:
         T* m_Data;
-        size_t m_Count;
-        size_t m_Used;
+        unsigned int m_Count;
+        unsigned int m_Used;
 
-        T* add_block(size_t count) {
+        T* add_block(unsigned int count) {
 
-            T* newData = (T*)new char[sizeof(T) * (m_Count + count)];
-            std::memcpy(newData, m_Data, sizeof(T) * m_Used);
+            T* newData = new T[m_Count + count];
+            for (int i = 0; i < m_Count; i++)
+                newData[i] = m_Data[i];
+
             m_Count = count;
 
             delete[] m_Data;
@@ -30,15 +32,16 @@ namespace clstl {
         }
 
     public:
-        vector(size_t count) : m_Data((T*)new char[sizeof(T) * count]), m_Count(count), m_Used(0) {
+        vector(unsigned int count) : m_Data(new T[count]), m_Count(count), m_Used(0) {
 
         }
 
-        vector(T* data, size_t count) : m_Data((T*)new char[sizeof(T) * count]), m_Count(count), m_Used(count) {
-            std::memcpy(m_Data, data, sizeof(T) * count);
+        vector(T* data, unsigned int count) : m_Data(new T[count]), m_Count(count), m_Used(count) {
+            for (int i = 0; i < count; i++)
+                m_Data[i] = data[i];
         }
 
-        vector() : m_Data((T*)new char[sizeof(T)]), m_Count(1), m_Used(0) {
+        vector() : m_Data(new T[1]), m_Count(1), m_Used(0) {
 
         }
 
@@ -46,13 +49,13 @@ namespace clstl {
 
             this->m_Count = other.m_Count;
             this->m_Used = other.m_Used;
-            this->m_Data = (T*)new char[sizeof(T) * m_Count];
+            this->m_Data = new T[m_Count];
 
             std::memcpy(m_Data, other.m_Data, sizeof(T) * m_Used);
 
         }
 
-        void reserve(size_t count) {
+        void reserve(unsigned int count) {
             add_block(count);
         }
 
@@ -78,9 +81,9 @@ namespace clstl {
 
         }
 
-        void splice(size_t index, size_t count) {
+        void splice(unsigned int index, unsigned int count) {
 
-            for (size_t i = index + count; i < m_Used; i++) {
+            for (unsigned int i = index + count; i < m_Used; i++) {
 
                 m_Data[i - count] = m_Data[i];
 
@@ -99,7 +102,7 @@ namespace clstl {
             if (hard_clear) {
 
                 delete[] m_Data;
-                m_Data = (T*)new char[sizeof(T) * m_Count];
+                m_Data = new T[m_Count];
 
             }
             m_Used = 0;
@@ -113,20 +116,22 @@ namespace clstl {
         // Standard clstl iterator (Not standard... I know!)
         void for_each(void(*func)(T& item)) {
 
-            for (size_t i = 0; i < m_Used; i++)
+            for (unsigned int i = 0; i < m_Used; i++)
                 func(m_Data[i]);
 
         }
 
         // Returns the amount of items inserted into
         // the vector
-        size_t size() const { return m_Used; }
-        size_t allocated() const { return m_Count; } // Returns the integer allocated space
+        unsigned int size() const { return m_Used; }
+        unsigned int allocated() const { return m_Count; } // Returns the integer allocated space
 
-        T& at(size_t index) { return m_Data[index]; } // I'm not explaining this...
-        T& operator[](size_t index) { return this->at(index); } // Same as this->at(index);
+        T& at(unsigned int index) { return m_Data[index]; } // I'm not explaining this...
+        T& operator[](unsigned int index) { return this->at(index); } // Same as this->at(index);
 
-        ~vector() { delete[] m_Data; }
+        ~vector() {
+            delete[] m_Data;
+        }
 
     };
 

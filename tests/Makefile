@@ -1,5 +1,5 @@
 all:
-	g++ -g -I ../include -L ../build -lclstl -o test main.cpp
+	g++ main.cpp ../src/string.cpp -g -I ../include -L ../build -lclstl -o test
 
 clean:
 	rm test

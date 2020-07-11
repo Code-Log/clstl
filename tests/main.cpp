@@ -13,7 +13,8 @@
 #include <clstl/stack.h>
 #include <clstl/string.h>
 
-#define TEST_STRING "this is a long test string with some control characters\t\n"
+#define TEST_STRING_LONG "this is a long test string with some control characters\t\n"
+#define TEST_STRING_SHORT "short_string__"
 #define TEST_INTEGER 4e6
 
 std::vector<std::function<void(void)>>* test_funcs;
@@ -41,6 +42,14 @@ void test_vector(void) {
         results.emplace_back(-1);
     }
 
+    clstl::string str1 = TEST_STRING_LONG;
+    clstl::string str2 = TEST_STRING_SHORT;
+    {
+        clstl::vector<clstl::string> str_vec;
+        str_vec.push_back(str1);
+        str_vec.push_back(str2);
+    }
+
     results.emplace_back(0);
 
 }
@@ -64,9 +73,9 @@ void test_unique_ptr(void) {
 void test_list(void) {
 
     clstl::list<Entity> test_list;
-    test_list.emplace_back(TEST_STRING);
+    test_list.emplace_back(TEST_STRING_LONG);
 
-    if (strcmp(test_list[0].getName(), TEST_STRING) != 0) {
+    if (strcmp(test_list[0].getName(), TEST_STRING_SHORT) != 0) {
         results.emplace_back(-1);
         return;
     }
@@ -76,9 +85,9 @@ void test_list(void) {
 void test_slist(void) {
     
     clstl::slist<Entity> test_list;
-    test_list.emplace_back(TEST_STRING);
+    test_list.emplace_back(TEST_STRING_SHORT);
 
-    if (strcmp(test_list[0].getName(), TEST_STRING) != 0) {
+    if (strcmp(test_list[0].getName(), TEST_STRING_SHORT) != 0) {
         results.emplace_back(-1);
         return;
     }
@@ -163,6 +172,18 @@ void test_string(void) {
 
     if (s_1 != s_2) {
         results.emplace_back(-3);
+        return;
+    }
+
+    clstl::string scope_test;
+    {
+        clstl::string sc = "Scope test";
+        scope_test = sc;
+    }
+
+    const char* t = scope_test.c_str();
+    if (!t) {
+        results.emplace_back(-4);
         return;
     }
 

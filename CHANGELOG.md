@@ -63,3 +63,13 @@
 ## 2019-11-29 -- v0.2.6
 
 * Fixed hash_map
+
+## 2020-02-08 -- v0.2.7
+
+* Fixed some compilation errors
+
+## 2020-07-11 -- v0.2.8
+
+* Tomorrow is my birthday...
+* Moved string.cpp to the root of src
+* Made sure vector calls every element's copy constructor when copying the data block. (Previously, we only did a shallow copy)

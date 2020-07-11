@@ -4,7 +4,6 @@
 #pragma once
 
 #include <ostream>
-#include <clstl/types.h>
 
 namespace clstl {
 
@@ -12,7 +11,7 @@ namespace clstl {
 
     private:
         char* m_Buffer;
-        ulong m_Length;
+        unsigned int m_Length;
 
     public:
         string();
@@ -22,12 +21,12 @@ namespace clstl {
 
         string concat(const string& other) const;
         string operator+(const string& other) const;
-        char& operator[](ulong index);
+        char& operator[](unsigned int index);
         void operator=(const string& other);
         const char* c_str() const;
         bool operator==(const string& other) const;
         bool operator!=(const string& other) const;
-        operator char*() { return m_Buffer; }
+        operator const char*() { return m_Buffer; }
 
     };
 
