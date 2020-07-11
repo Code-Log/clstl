@@ -7,10 +7,10 @@ namespace clstl {
 
     string::string(const char* buffer) {
 
-        this->m_Length = strlen(buffer);
-        
+        this->m_Length = std::strlen(buffer);
         this->m_Buffer = new char[this->m_Length + 1];
-        strcpy(m_Buffer, buffer);
+        
+        std::strcpy(m_Buffer, buffer);
         m_Buffer[m_Length] = 0;
 
     }
@@ -27,22 +27,20 @@ namespace clstl {
     const char* string::c_str() const { return m_Buffer; }
 
     string::~string() {
-        delete[] m_Buffer;
+        if (m_Buffer)
+            delete[] m_Buffer;
     }
 
     string string::concat(const string& other) const {
 
-        ulong newLength = other.m_Length + this->m_Length;
-        char* newBuf = new char[newLength + 1];
-        strcpy(newBuf, m_Buffer);
-        strcpy(newBuf + m_Length, other.m_Buffer);
-        newBuf[newLength] = 0;
+        clstl::string newstr;
+        unsigned int newlength = m_Length + other.m_Length;
+        newstr.m_Buffer = new char[newlength + 1];
+        std::strcpy(newstr.m_Buffer, m_Buffer);
+        std::strcat(newstr.m_Buffer, other.m_Buffer);
+        newstr.m_Length = newlength;
 
-        string newStr;
-        newStr.m_Buffer = newBuf;
-        newStr.m_Length = newLength;
-
-        return newStr;
+        return newstr;
 
     }
 
@@ -50,36 +48,8 @@ namespace clstl {
         return this->concat(other);
     }
 
-    char& string::operator[](ulong index) {
+    char& string::operator[](unsigned int index) {
         return m_Buffer[index];
-    }
-
-    uint strlen(const char* str) {
-
-        size_t len = 0;
-
-        size_t index = 0;
-        while (char c = str[index] != 0) {
-
-            len++;
-            index++;
-
-        }
-
-        return len;
-
-    }
-
-    void strcpy(char* dest, const char* src) {
-
-        size_t index = 0;
-        while (src[index] != 0) {
-
-            dest[index] = src[index];
-            index++;
-
-        }
-
     }
 
     void string::operator=(const string& other) {
@@ -93,11 +63,13 @@ namespace clstl {
 
     bool string::operator==(const string& other) const {
 
-        return strcmp(this->m_Buffer, other.m_Buffer) == 0;
+        return std::strcmp(this->m_Buffer, other.m_Buffer) == 0;
 
     }
 
-    bool string::operator!=(const string& other) const { return !operator==(other); }
+    bool string::operator!=(const string& other) const {
+        return !(this->operator==(other));
+    }
 
 }
 

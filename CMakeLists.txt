@@ -4,7 +4,7 @@ project(clstl)
 enable_testing()
 add_library(
     clstl 
-    "src/string/string.cpp"
+    "src/string.cpp"
 )
 
 add_executable(clstl_test tests/main.cpp)
