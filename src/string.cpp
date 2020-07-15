@@ -1,5 +1,6 @@
 #include <clstl/string.h>
 #include <cstring>
+#include <alloca.h>
 
 namespace clstl {
 
@@ -69,6 +70,110 @@ namespace clstl {
 
     bool string::operator!=(const string& other) const {
         return !(this->operator==(other));
+    }
+
+    char& string::at(unsigned int index) { return operator[](index); }
+    char& string::front() { return operator[](0); }
+    char& string::back() { return operator[](m_Length - 1); }
+
+    char* string::data() { return m_Buffer; }
+
+    unsigned int string::size() const { return m_Length; }
+    unsigned int string::length() const { return size(); }
+
+    unsigned int string::capacity() const { return m_Length; }
+
+    bool string::empty() const { return m_Length == 0; }
+
+    void string::clear() {
+        delete[] m_Buffer;
+        m_Buffer = new char[1];
+        m_Buffer[0] = 0;
+        m_Length = 0;
+    }
+
+    void string::push_back(char ch) {
+
+        m_Length++;
+        char* nbuf = new char[m_Length + 1];
+        std::strcpy(nbuf, m_Buffer);
+        nbuf[m_Length - 1] = ch;
+        delete[] m_Buffer;
+        m_Buffer = nbuf;
+
+    }
+
+    void string::pop_back() {
+        m_Buffer[m_Length - 1] = 0;
+        m_Length--;
+    }
+
+    string& string::operator+=(const string& other) {
+        
+        unsigned int old_length = m_Length;
+        
+        m_Length += other.m_Length;
+        char* nbuf = new char[m_Length + 1];
+        
+        std::strcpy(nbuf, m_Buffer);
+        std::strcpy(nbuf + old_length, other.m_Buffer);
+        
+        delete[] m_Buffer;
+        m_Buffer = nbuf;
+
+        return *this;
+
+    }
+
+    string& string::operator+=(const char* other) {
+        return operator+=(string(other));
+    }
+
+    string& string::operator+=(char ch) {
+        push_back(ch);
+        return *this;
+    }
+
+    bool string::starts_with(const string& other) const { return substr(0, other.m_Length) == other; }
+    bool string::starts_with(const char* other) const { return starts_with(string(other)); }
+    bool string::starts_with(char ch) const { return m_Buffer[0] == ch; }
+
+    bool string::ends_with(const string& other) const { return substr(m_Length - other.m_Length) == other; }
+    bool string::ends_with(const char* other) const { return ends_with(string(other)); }
+    bool string::ends_with(char ch) const { return m_Buffer[m_Length - 1] == 0; }
+
+    string string::substr(unsigned int pos, unsigned int count) const {
+
+        if (count == npos)
+            count = m_Length - pos;
+
+        char* buf = (char*)alloca(count + 1);
+        std::memcpy(buf, m_Buffer + pos, count);
+        
+        return string(buf);
+
+    }
+
+    unsigned int string::find(char ch) const {
+
+        unsigned int pos = npos;
+        for (int i = 0; i < m_Length; i++) 
+            if (m_Buffer[i] == ch)
+                pos = i;
+        
+        return pos;
+
+    }
+
+    unsigned int string::rfind(char ch) const {
+
+        unsigned int pos = npos;
+        for (int i = m_Length - 1; i >= 0; i--)
+            if (m_Buffer[i] == ch)
+                pos = i;
+
+        return pos;
+
     }
 
 }
