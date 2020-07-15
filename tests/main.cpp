@@ -12,6 +12,7 @@
 #include <clstl/hash_map.h>
 #include <clstl/stack.h>
 #include <clstl/string.h>
+#include "test_string.h"
 
 #define TEST_STRING_LONG "this is a long test string with some control characters\t\n"
 #define TEST_STRING_SHORT "short_string__"
@@ -75,7 +76,7 @@ void test_list(void) {
     clstl::list<Entity> test_list;
     test_list.emplace_back(TEST_STRING_LONG);
 
-    if (strcmp(test_list[0].getName(), TEST_STRING_SHORT) != 0) {
+    if (strcmp(test_list[0].getName(), TEST_STRING_LONG) != 0) {
         results.emplace_back(-1);
         return;
     }
@@ -146,44 +147,6 @@ void test_stack(void) {
 
     if (test_s.pop() != 4) {
         results.emplace_back(-1);
-        return;
-    }
-
-}
-
-void test_string(void) {
-
-    clstl::string s_test = "Hi";
-    clstl::string c_test = "2";
-    c_test = s_test + c_test;
-
-    if (strcmp(s_test.c_str(), "Hi") != 0) {
-        results.emplace_back(-1);
-        return;
-    }
-
-    if (strcmp(c_test.c_str(), "Hi2") != 0) {
-        results.emplace_back(-2);
-        return;
-    }
-
-    clstl::string s_1 = "test";
-    clstl::string s_2 = "test";
-
-    if (s_1 != s_2) {
-        results.emplace_back(-3);
-        return;
-    }
-
-    clstl::string scope_test;
-    {
-        clstl::string sc = "Scope test";
-        scope_test = sc;
-    }
-
-    const char* t = scope_test.c_str();
-    if (!t) {
-        results.emplace_back(-4);
         return;
     }
 

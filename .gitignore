@@ -5,3 +5,4 @@ testproj
 build
 build-debug
 debian
+tests/test
