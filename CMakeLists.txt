@@ -7,7 +7,7 @@ add_library(
     "src/string.cpp"
 )
 
-add_executable(clstl_test tests/main.cpp)
+add_executable(clstl_test tests/main.cpp tests/test_string.cpp)
 target_include_directories(clstl_test PUBLIC include)
 target_link_directories(clstl_test PUBLIC build)
 target_link_libraries(clstl_test clstl)
