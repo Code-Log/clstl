@@ -24,23 +24,97 @@ std::vector<int> results(1);
 class Entity {
 
 private:
-    const char* m_Name;
+    std::string m_Name;
+    int* stuff;
 
 public:
-    Entity(const char* name) : m_Name(name) { }
-    Entity(const Entity& other) : m_Name(other.m_Name) { }
+    Entity() : stuff(new int) { }
+    Entity(const char* name) : m_Name(name), stuff(new int) { }
+    Entity(const Entity& other) : m_Name(other.m_Name), stuff(new int) {
+        *stuff = *other.stuff;
+    }
 
-    const char* getName() { return m_Name; }
+    ~Entity() {
+        std::cout << "Entity " << m_Name << " deleted!" << std::endl;
+        delete stuff;
+    }
+
+    Entity& operator=(const Entity& other) {
+        stuff = new int;
+        *stuff = *other.stuff;
+        m_Name = other.m_Name;
+        return *this;
+    }
+
+    std::string getName() const { return m_Name; }
 
 };
 
+template<typename T>
+void print_vec(clstl::vector<T>& v) {
+
+    std::cout << "[" << v[0];
+    for (int i = 1; i < v.size(); i++) {
+        std::cout << "," << v[i];
+    }
+    std::cout << "]" << std::endl;
+
+}
+
+std::ostream& operator<<(std::ostream& stream, const Entity& e) {
+    stream << e.getName();
+    return stream;
+}
+
 void test_vector(void) {
 
-    clstl::vector<int> test_vec(1);
-    test_vec.emplace_back(255);
+    {
+        clstl::vector<int> test_vec(1);
+        test_vec.emplace_back(255);
 
-    if (test_vec[0] != 255) {
-        results.emplace_back(-1);
+        if (test_vec[0] != 255) {
+            results.emplace_back(-1);
+        }
+    }
+
+    {
+        clstl::vector<int> test_vec(100);
+        for (int i = 0; i < 100; i++)
+            test_vec.push_back(i);
+
+        test_vec.erase(11, 10);
+        if (test_vec[11] != 21) {
+            print_vec(test_vec);
+            results.emplace_back(-2);
+        }
+    }
+
+    {
+
+        clstl::vector<Entity> test_vec(1);
+        test_vec.emplace_back("Hi");
+        test_vec.emplace_back("world");
+        print_vec(test_vec);
+
+        test_vec.pop_back();
+
+        print_vec(test_vec);
+
+    }
+
+    {
+        std::cout << "--" << std::endl;
+        auto ptr1 = new clstl::vector<Entity>(1);
+        auto ptr2 = new clstl::vector<Entity>(1);
+
+        ptr1->emplace_back("Hello");
+
+        *ptr2 = *ptr1;
+        delete ptr1;
+
+        print_vec(*ptr2);
+        delete ptr2;
+
     }
 
     clstl::string str1 = TEST_STRING_LONG;
@@ -64,7 +138,7 @@ void test_unique_ptr(void) {
     }
 
     auto test_ptr_entity = clstl::make_unique<Entity>("name");
-    if (strcmp("name", test_ptr_entity->getName()) != 0) {
+    if (strcmp("name", test_ptr_entity->getName().c_str()) != 0) {
         results.emplace_back(-2);
         return;
     }
@@ -76,7 +150,7 @@ void test_list(void) {
     clstl::list<Entity> test_list;
     test_list.emplace_back(TEST_STRING_LONG);
 
-    if (strcmp(test_list[0].getName(), TEST_STRING_LONG) != 0) {
+    if (strcmp(test_list[0].getName().c_str(), TEST_STRING_LONG) != 0) {
         results.emplace_back(-1);
         return;
     }
@@ -88,7 +162,7 @@ void test_slist(void) {
     clstl::slist<Entity> test_list;
     test_list.emplace_back(TEST_STRING_SHORT);
 
-    if (strcmp(test_list[0].getName(), TEST_STRING_SHORT) != 0) {
+    if (strcmp(test_list[0].getName().c_str(), TEST_STRING_SHORT) != 0) {
         results.emplace_back(-1);
         return;
     }
