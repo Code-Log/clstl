@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include "test_string.h"
 
@@ -44,6 +45,18 @@ void test_string() {
             results.emplace_back(-3);
             return;
         }
+
+    }
+
+    {
+
+        std::ifstream fs("test.txt");
+
+        clstl::string line;
+        while (getline(fs, line))
+            std::cout << line << std::endl;
+
+        fs.close();
 
     }
 
