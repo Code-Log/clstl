@@ -6,3 +6,4 @@ build
 build-debug
 debian
 tests/test
+tests/*.txt

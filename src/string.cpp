@@ -1,6 +1,8 @@
 #include <clstl/string.h>
 #include <cstring>
 #include <alloca.h>
+#include <clstl/vector.h>
+#include <iostream>
 
 namespace clstl {
 
@@ -188,4 +190,17 @@ clstl::string& operator ""_s(const char* lit, size_t) {
 std::ostream& operator<<(std::ostream& stream, const clstl::string& str) {
     stream << str.c_str();
     return stream;
+}
+
+std::basic_istream<char>& getline(std::basic_istream<char>& input, clstl::string& str) {
+
+    clstl::vector<char> buf(16);
+    char cur;
+    str.clear();
+    while (cur = input.get() != '\n') {
+        str.push_back(cur);
+    }
+
+    return input;
+
 }
