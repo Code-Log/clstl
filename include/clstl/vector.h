@@ -18,16 +18,15 @@ namespace clstl {
 
         T* add_block(unsigned int count) {
 
-            T* newData = new T[m_Count + count];
-            for (int i = 0; i < m_Count; i++)
-                newData[i] = m_Data[i];
-
-            m_Count = count;
+            T* newBuf = new T[m_Count + count];
+            for (int i = 0; i < m_Used; i++)
+                newBuf[i] = m_Data[i];
 
             delete[] m_Data;
-            m_Data = newData;
+            m_Count = m_Count + count;
+            m_Data = newBuf;
 
-            return m_Data;
+            return newBuf;
 
         }
 
@@ -36,14 +35,12 @@ namespace clstl {
 
         }
 
-        vector(T* data, unsigned int count) : m_Data(new T[count]), m_Count(count), m_Used(count) {
+        vector(unsigned int count, T* data) : m_Data(new T[count]), m_Count(count), m_Used(count) {
             for (int i = 0; i < count; i++)
                 m_Data[i] = data[i];
         }
 
-        vector() : m_Data(new T[1]), m_Count(1), m_Used(0) {
-
-        }
+        vector() : m_Data(new T[1]), m_Count(1), m_Used(0) { }
 
         vector(const vector<T>& other) {
 
@@ -51,7 +48,8 @@ namespace clstl {
             this->m_Used = other.m_Used;
             this->m_Data = new T[m_Count];
 
-            std::memcpy(m_Data, other.m_Data, sizeof(T) * m_Used);
+            for (int i = 0; i < m_Used; i++)
+                m_Data[i] = other.m_Data[i];
 
         }
 
@@ -69,42 +67,34 @@ namespace clstl {
 
         }
 
+        void pop_back() {
+            m_Used--;
+        }
+
         template<typename... args_t>
         void emplace_back(args_t&&... args) {
             
             if (m_Used >= m_Count)
                 add_block(1);
 
-            // Construct object in-place
             new(m_Data + m_Used) T(args...);
             m_Used++;
 
         }
 
-        void splice(unsigned int index, unsigned int count) {
+        void erase(unsigned int index, unsigned int count) {
 
-            for (unsigned int i = index + count; i < m_Used; i++) {
-
+            for (unsigned int i = index + count; i < m_Used; i++)
                 m_Data[i - count] = m_Data[i];
-
-            }
 
             m_Used -= count;
                 
         }
 
-        /*
-            Hard clear reallocates the
-            underlying storage
-        */
-        void clear(bool hard_clear = false) {
+        void clear() {
             
-            if (hard_clear) {
-
-                delete[] m_Data;
-                m_Data = new T[m_Count];
-
-            }
+            delete[] m_Data;
+            m_Data = new T[m_Count];
             m_Used = 0;
 
         }
@@ -113,7 +103,9 @@ namespace clstl {
             return m_Data;
         }
 
-        // Standard clstl iterator (Not standard... I know!)
+        T& front() { return m_Data[0]; }
+        T& back() { return m_Data[m_Used - 1]; }
+
         void for_each(void(*func)(T& item)) {
 
             for (unsigned int i = 0; i < m_Used; i++)
@@ -121,13 +113,34 @@ namespace clstl {
 
         }
 
-        // Returns the amount of items inserted into
-        // the vector
         unsigned int size() const { return m_Used; }
-        unsigned int allocated() const { return m_Count; } // Returns the integer allocated space
+        unsigned int capacity() const { return m_Count; }
 
-        T& at(unsigned int index) { return m_Data[index]; } // I'm not explaining this...
-        T& operator[](unsigned int index) { return this->at(index); } // Same as this->at(index);
+        void shrink_to_fit() {
+            T* newBuf = new T[m_Used];
+            for (int i = 0; i < m_Used; i++)
+                newBuf[i] = m_Data[i];
+
+            m_Count = m_Used;
+            delete[] m_Data;
+            m_Data = newBuf;
+        }
+
+        T& at(unsigned int index) { return m_Data[index]; }
+        T& operator[](unsigned int index) { return this->at(index); }
+
+        clstl::vector<T>& operator=(const clstl::vector<T>& other) {
+
+            this->m_Count = other.m_Count;
+            this->m_Used = other.m_Used;
+            this->m_Data = new T[m_Count];
+
+            for (int i = 0; i < m_Used; i++)
+                m_Data[i] = other.m_Data[i];
+
+            return *this;
+
+        }
 
         ~vector() {
             delete[] m_Data;
