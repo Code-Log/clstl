@@ -4,6 +4,7 @@
 #pragma once
 
 #include <ostream>
+#include <istream>
 
 namespace clstl {
 
@@ -82,5 +83,6 @@ namespace clstl {
 
 clstl::string& operator ""_s(const char* lit, size_t size);
 std::ostream& operator<<(std::ostream& stream, const clstl::string& str);
+std::basic_istream<char>& getline(std::basic_istream<char>& input, clstl::string& str);
 
 #endif

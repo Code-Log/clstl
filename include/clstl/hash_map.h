@@ -27,7 +27,7 @@ namespace clstl {
             for (uint i = m_Data.size() - 1; i >= 0; i--) {
 
                 if (m_Data[i].head() == key) {
-                    m_Data.splice(i, 1);
+                    m_Data.erase(i, 1);
                     return;
                 }
 

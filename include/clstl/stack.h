@@ -27,7 +27,7 @@ namespace clstl {
         T pop() {
 
             T ret = m_Data[m_Data.size() - 1];
-            m_Data.splice(m_Data.size() - 1, 1);
+            m_Data.erase(m_Data.size() - 1, 1);
             return ret;
 
         }
