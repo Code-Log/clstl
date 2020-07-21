@@ -73,3 +73,8 @@
 * Tomorrow is my birthday...
 * Moved string.cpp to the root of src
 * Made sure vector calls every element's copy constructor when copying the data block. (Previously, we only did a shallow copy)
+
+## 2020-07-21 -- v0.3.0
+
+* Added standard features to string and vector.
+* Fixed some problems with vector crashing and copying elements incorrectly.
