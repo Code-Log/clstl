@@ -1,5 +1,4 @@
 #include <clstl/string.h>
-#include <string>
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -45,18 +44,6 @@ void test_string() {
             results.emplace_back(-3);
             return;
         }
-
-    }
-
-    {
-
-        std::ifstream fs("test.txt");
-
-        clstl::string line;
-        while (getline(fs, line))
-            std::cout << line << std::endl;
-
-        fs.close();
 
     }
 
