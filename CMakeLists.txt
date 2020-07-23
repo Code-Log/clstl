@@ -9,7 +9,6 @@ add_library(
 
 add_executable(clstl_test tests/main.cpp tests/test_string.cpp)
 target_include_directories(clstl_test PUBLIC include)
-target_link_directories(clstl_test PUBLIC build)
 target_link_libraries(clstl_test clstl)
 
 add_test(test_vector clstl_test 1)
