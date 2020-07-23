@@ -8,7 +8,7 @@ namespace clstl {
         slist<T>* m_Next;
     
     public:
-        slist() : m_Data(nullptr), m_Next(nullptr) {}
+        slist() : m_Next(nullptr) {}
 
         slist(const T& data) : m_Data(data) {}
 

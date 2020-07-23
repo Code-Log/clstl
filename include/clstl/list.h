@@ -9,7 +9,7 @@ namespace clstl {
         list<T>* m_Next;
     
     public:
-        list() : m_Data(nullptr), m_Next(nullptr), m_Prev(this) {}
+        list() : m_Next(nullptr), m_Prev(this) {}
 
         list(const T& data) : m_Data(data) {}
 
