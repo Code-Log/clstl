@@ -78,3 +78,8 @@
 
 * Added standard features to string and vector.
 * Fixed some problems with vector crashing and copying elements incorrectly.
+
+## 2020-07-23 -- v0.3.1
+
+* Fixed Windows compilation errors.
+* Replaced uint with unsigned int.
