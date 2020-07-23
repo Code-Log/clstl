@@ -19,5 +19,5 @@ before_script:
   - cmake .. -DCMAKE_BUILD_TYPE=Release
 
 script:
-  - make
+  - cmake --build .
   - ctest --output-on-failure || exit 1
