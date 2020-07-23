@@ -148,11 +148,13 @@ namespace clstl {
         if (count == npos)
             count = m_Length - pos;
 
-        char buf[count + 1];
+        char* buf = new char[count + 1];
         std::memcpy(buf, m_Buffer + pos, count);
         buf[count] = 0;
+        clstl::string res = buf;
+        delete[] buf;
         
-        return string(buf);
+        return res;
 
     }
 
