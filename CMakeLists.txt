@@ -24,6 +24,12 @@ set_target_properties(
     CXX_STANDARD_REQUIRED YES
 )
 
+set_target_properties(
+    clstl_test PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+)
+
 target_include_directories(clstl PUBLIC include)
 
 install(TARGETS clstl DESTINATION lib)
