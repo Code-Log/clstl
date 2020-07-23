@@ -1,6 +1,5 @@
 #include <clstl/string.h>
 #include <cstring>
-#include <alloca.h>
 #include <clstl/vector.h>
 #include <iostream>
 
@@ -149,7 +148,7 @@ namespace clstl {
         if (count == npos)
             count = m_Length - pos;
 
-        char* buf = (char*)alloca(count + 1);
+        char buf[count + 1];
         std::memcpy(buf, m_Buffer + pos, count);
         buf[count] = 0;
         

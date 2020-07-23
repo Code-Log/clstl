@@ -70,14 +70,11 @@ namespace clstl {
         string& operator+=(const char* other);
         string& operator+=(char ch);
 
-        operator const char*() { return m_Buffer; }
+        operator char*() { return m_Buffer; }
 
         bool empty() const;
 
     };
-
-    uint strlen(const char* str);
-    void strcpy(char* dest, const char* src);
 
 }
 
