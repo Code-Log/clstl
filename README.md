@@ -1,5 +1,7 @@
 # CLSTL
 
+[![Build Status](https://travis-ci.org/Code-Log/clstl.svg?branch=master)](https://travis-ci.org/Code-Log/clstl)
+
 ## Description
 
 This is the CodeLog Standard Template Library or CLSTL.
