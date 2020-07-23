@@ -151,6 +151,7 @@ namespace clstl {
 
         char* buf = (char*)alloca(count + 1);
         std::memcpy(buf, m_Buffer + pos, count);
+        buf[count] = 0;
         
         return string(buf);
 
