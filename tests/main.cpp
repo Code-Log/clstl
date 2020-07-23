@@ -148,7 +148,7 @@ void test_unique_ptr(void) {
 void test_list(void) {
 
     clstl::list<Entity> test_list;
-    test_list.emplace_back(TEST_STRING_LONG);
+    test_list.emplace_back(clstl::string(TEST_STRING_LONG));
 
     if (strcmp(test_list[0].getName().c_str(), TEST_STRING_LONG) != 0) {
         results.emplace_back(-1);
