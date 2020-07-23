@@ -21,4 +21,4 @@ before_script:
 script:
   - cd build
   - make
-  - make test
+  - ctest --output-on-failure
