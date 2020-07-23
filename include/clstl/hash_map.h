@@ -16,7 +16,7 @@ namespace clstl {
 
     public:
         hash_map() = default;
-        hash_map(uint size) : m_Data(size) {}
+        hash_map(unsigned int size) : m_Data(size) {}
 
         void add(K key, V value) {
             m_Data.emplace_back(key, value);
@@ -24,7 +24,7 @@ namespace clstl {
 
         void remove(const K& key) {
 
-            for (uint i = m_Data.size() - 1; i >= 0; i--) {
+            for (unsigned int i = m_Data.size() - 1; i >= 0; i--) {
 
                 if (m_Data[i].head() == key) {
                     m_Data.erase(i, 1);
@@ -38,7 +38,7 @@ namespace clstl {
         V get(const K& key) {
 
             V val;
-            for (uint i = 0; i < m_Data.size(); i++) {
+            for (unsigned int i = 0; i < m_Data.size(); i++) {
 
                 if (m_Data[i].head() == key) {
                     return m_Data[i].tail();

@@ -6,7 +6,7 @@ namespace clstl {
     private:
         T m_Data;
         slist<T>* m_Next;
-    
+
     public:
         slist() : m_Next(nullptr) {}
 
@@ -39,9 +39,9 @@ namespace clstl {
 
         }
 
-        uint size() {
+        unsigned int size() {
 
-            uint ret = 0;
+            unsigned int ret = 0;
             slist<T>* current = this;
             while (current->m_Next != nullptr) {
                 current = current->m_Next;
@@ -54,15 +54,15 @@ namespace clstl {
 
         void for_each(void(*func)(T& item)) {
 
-            for (uint i = 0; i < this->size(); i++) {
+            for (unsigned int i = 0; i < this->size(); i++) {
                 func(this->get(i));
             }
 
         }
 
-        T& get(uint index) { return (*this)[index]; }
+        T& get(unsigned int index) { return (*this)[index]; }
 
-        T& operator[](uint index) {
+        T& operator[](unsigned int index) {
 
             slist<T>* current = this->m_Next;
             for (int i = 0; i < index; i++) {
