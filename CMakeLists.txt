@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.11)
 project(clstl)
 
+FILE(GLOB CLSTL_HEADERS "include/*.h")
+
 enable_testing()
 add_library(
-    clstl 
+    clstl
+    ${CLSTL_HEADERS}
     "src/string.cpp"
 )
 
@@ -17,6 +20,7 @@ add_test(test_list clstl_test 3)
 add_test(test_slist clstl_test 4)
 add_test(test_stack clstl_test 5)
 add_test(test_string clstl_test 6)
+add_test(test_queue clstl_test 7)
 
 set_target_properties(
     clstl PROPERTIES

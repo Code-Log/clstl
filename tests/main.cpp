@@ -12,11 +12,14 @@
 #include <clstl/hash_map.h>
 #include <clstl/stack.h>
 #include <clstl/string.h>
+#include <clstl/queue.h>
 #include "test_string.h"
 
 #define TEST_STRING_LONG "this is a long test string with some control characters\t\n"
 #define TEST_STRING_SHORT "short_string__"
 #define TEST_INTEGER 4e6
+
+#define fail_if(x, y) if (x) { results.emplace_back(y); return; }
 
 std::vector<std::function<void(void)>>* test_funcs;
 std::vector<int> results(1);
@@ -226,6 +229,18 @@ void test_stack(void) {
 
 }
 
+void test_queue(void) {
+
+    clstl::queue<int, 3> test_q;
+    test_q.push(3);
+    test_q.push(4);
+    test_q.push(6);
+
+    fail_if(test_q.pop() != 3, -1);
+    fail_if(test_q.size() != 2, -2);
+
+}
+
 int main(int argc, const char** argv) {
 
     test_funcs = new std::vector<std::function<void(void)>>();
@@ -237,6 +252,7 @@ int main(int argc, const char** argv) {
     test_funcs->push_back(test_slist);
     test_funcs->push_back(test_stack);
     test_funcs->push_back(test_string);
+    test_funcs->push_back(test_queue);
 
     if (argc <= 1) {
         
